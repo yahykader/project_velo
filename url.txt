@@ -1,0 +1,17 @@
+
+Paris: https://www.velib-metropole.fr/donnees-open-data-gbfs-du-service-velib-metropole
+Lyon : https://data.grandlyon.com/portail/fr/jeux-de-donnees/stations-velo-v-metropole-lyon-disponibilites-temps-reel/info
+LYON ::: https://data.grandlyon.com/fr/datapusher/ws/rdata/jcd_jcdecaux.jcdvelov/all.json?maxfeatures=-1&filename=stations-velo-v-metropole-lyon-disponibilites-temps-reel
+Bordeaux : https://datahub.bordeaux-metropole.fr/explore/dataset/ci_vcub_p/information/
+Marseille: https://data.ampmetropole.fr/explore/dataset/gbfs-extract-station-information/information/?disjunctive.nom_division
+
+
+copie le fichier dans le cloud storage
+gcloud storage cp velo1.py   gs://europe-west9-dev-composer-e-aeaa3dd5-bucket/dags 
+
+
+
+ soda test-connection -d paris_data -c /home/yahyaoui.kader.85/my-bicycle/soda/configuration.yml  
+
+
+ soda scan -d dev_my_velib -c soda/configuration.yml  soda/checks/sources/paris_data.yml  

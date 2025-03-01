@@ -1,0 +1,34 @@
+checks for raw_view_lyon:
+
+  - schema:
+      fail:
+        when required column missing: [address, address_jcd, availability, availabilitycode, available_bike_stands, available_bikes, banking, bike_stands, bonus, code_insee, commune, gid, last_update, last_update_fme, last_update_gl, lat, lng, 
+          bikes, electricalBikes, electricalInternalBatteryBikes, electricalRemovableBatteryBikes, mechanicalBikes, stands, GCS_loaded_at]
+        when wrong column type:
+          address: STRING
+          address_jcd: STRING
+          availability: STRING
+          availabilitycode: INTEGER
+          available_bike_stands: INTEGER
+          available_bikes: INTEGER
+          banking: BOOL
+          bike_stands: INTEGER
+          bonus: BOOL
+          code_insee: INTEGER
+          commune: STRING
+          gid: INTEGER
+          last_update: TIMESTAMP
+          last_update_fme: TIMESTAMP
+          last_update_gl: TIMESTAMP
+          lat: FLOAT64
+          lng: FLOAT64
+          bikes: INTEGER
+          electricalBikes:  INTEGER
+          electricalInternalBatteryBikes: INTEGER
+          electricalRemovableBatteryBikes: INTEGER
+          mechanicalBikes: INTEGER
+          stands: INTEGER
+          GCS_loaded_at: TIMESTAMP
+
+
+

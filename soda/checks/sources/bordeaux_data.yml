@@ -1,0 +1,25 @@
+checks for raw_view_bordeaux:
+
+  - schema:
+      fail:
+        when required column missing: [lon, lat, insee, commune, gml_id, gid, ident, type, nom, etat, nbplaces, nbvelos, nbelec, nbclassiq, cdate, mdate, code_commune, GCS_loaded_at]
+        when wrong column type:
+          lon: FLOAT64
+          lat: FLOAT64
+          insee: INTEGER
+          commune: STRING
+          gml_id: STRING
+          gid: INTEGER
+          ident: INTEGER
+          type: STRING
+          nom: STRING
+          etat: STRING
+          nbplaces: INTEGER
+          nbvelos: INTEGER
+          nbelec: INTEGER
+          nbclassiq: INTEGER
+          cdate: TIMESTAMP
+          mdate: TIMESTAMP
+          code_commune: INTEGER
+          GCS_loaded_at: TIMESTAMP
+

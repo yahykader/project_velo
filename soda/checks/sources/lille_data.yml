@@ -1,0 +1,20 @@
+checks for raw_view_lille:
+
+  - schema:
+      fail:
+        when required column missing: [nom, adresse, code_insee, commune, etat, type, nb_places_dispo, nb_velos_dispo, x, y, date_modification, id, GCS_loaded_at]
+        when wrong column type:
+          nom: STRING
+          adresse: STRING
+          code_insee: STRING
+          commune: STRING
+          etat: STRING
+          type: STRING
+          nb_places_dispo: INTEGER
+          nb_velos_dispo: INTEGER
+          etat_connexion: STRING
+          x: FLOAT64
+          y: FLOAT64
+          date_modification: TIMESTAMP
+          id: STRING
+          GCS_loaded_at: TIMESTAMP

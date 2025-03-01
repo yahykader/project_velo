@@ -1,0 +1,26 @@
+checks for raw_view_marseille:
+
+  - schema:
+      fail:
+        when required column missing: [station_id, nom_division, name, capacity, is_valet_station, num_bikes_available, num_docks_available, is_installed, is_renting, is_returning, lon, lat, last_reported_tr,
+                                        is_virtual_station, message_velo, message_dock_dispo, GCS_loaded_at]
+        when wrong column type:
+          station_id: STRING
+          nom_division: STRING
+          name: STRING
+          capacity: INTEGER
+          is_valet_station: INTEGER
+          num_bikes_available: INTEGER
+          num_docks_available: INTEGER
+          is_installed: INTEGER
+          is_renting: INTEGER
+          is_returning: INTEGER
+          lon: FLOAT64
+          lat: FLOAT64
+          last_reported_tr: TIMESTAMP
+          is_virtual_station: INTEGER
+          message_velo: STRING
+          message_dock_dispo: STRING
+          GCS_loaded_at: TIMESTAMP
+
+

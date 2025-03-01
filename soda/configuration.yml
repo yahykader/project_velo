@@ -1,0 +1,16 @@
+data_source dev_my_velib:
+  type: bigquery
+  connection:
+    account_info_json_path: /home/yahyaoui.kader.85/service_account.json
+    auth_scopes:
+    - https://www.googleapis.com/auth/bigquery
+    - https://www.googleapis.com/auth/cloud-platform
+    - https://www.googleapis.com/auth/drive
+    projects_id: 'data-engineering-451818'
+    dataset: dev_my_velib
+
+
+soda_cloud:
+  host: cloud.soda.io
+  api_key_id: b60c258a-fbcd-4df0-90a8-911cbba0ee6a
+  api_key_secret: iPYv9CwG9-mHQa3bfs307YIHfSTR0h6BrQ9m_gGJvuUVvMJ86yTw7w

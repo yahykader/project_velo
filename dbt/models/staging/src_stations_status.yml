@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+  - name: marseille_source
+    description: clone of Bigquery Marseille stations avaibility tables
+    database: data-engineering-451818
+    schema: dev_my_velib
+    tables:
+      - name: raw_view_marseille
+        description: "Combined view of all Marseille tables in the dataset."
+  - name: paris_source
+    description: clone of Bigquery Paris stations avaibility tables
+    database: data-engineering-451818
+    schema: dev_my_velib
+    tables:
+      - name: raw_view_paris
+        description: "Combined view of all Paris tables in the dataset."
+  - name: lille_source
+    description: clone of Bigquery Lille stations avaibility tables
+    database: data-engineering-451818
+    schema: dev_my_velib
+    tables:
+      - name: raw_view_lille
+        description: "Combined view of all Lille tables in the dataset."
+  - name: bordeaux_source
+    description: clone of Bigquery Bordeaux stations avaibility tables
+    database: data-engineering-451818
+    schema: dev_my_velib
+    tables:
+      - name: raw_view_bordeaux
+        description: "Combined view of all Bordeaux tables in the dataset."
+  - name: lyon_source
+    description: clone of Bigquery Lyon stations avaibility tables
+    database: data-engineering-451818
+    schema: dev_my_velib
+    tables:
+      - name: raw_view_lyon
+        description: "Combined view of all Lyon tables in the dataset."
+

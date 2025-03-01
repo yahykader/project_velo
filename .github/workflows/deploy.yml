@@ -1,0 +1,28 @@
+name: Deploy DAGs to GCP Bucket
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authentification
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: ${{ secrets.GCP_KEY }}
+
+      - name: Setup Google Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          project_id: ${{ secrets.GCP_KEY.project_id }}
+
+      - name: Upload DAGs to GCP Bucket
+        run: |
+          gsutil -m cp -r dags/* gs://my-velib/dags/
+          gsutil -m cp -r dags/* gs://europe-west9-my-bicycle-env-4004a10a-bucket/dags

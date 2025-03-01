@@ -1,0 +1,14 @@
+dbt:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: '{{ env_var(''GCP_AUTH_METHOD'') }}'
+      project: '{{ env_var(''GCP_PROJECT_ID'') }}'
+      location: '{{ env_var(''GCP_REGION'') }}'
+      keyfile: '{{ env_var(''DBT_GCP_SERVICE_ACCOUNT_KEY'') }}'
+      dataset: '{{ env_var(''BIGQUERY_DATASET'') }}'
+      priority: '{{ env_var(''BIGQUERY_PRIORITY'') }}'
+      job_execution_timeout_seconds: '{{ env_var(''BIGQUERY_TIMEOUT'') | int }}'
+      job_retries: '{{ env_var(''JOB_RETRIES'') | int }}'
+      threads: '{{ env_var(''BIGQUERY_THREADS'') | int }}'

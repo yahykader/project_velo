@@ -1,0 +1,45 @@
+version: 2
+
+models:
+#dim models
+  - name: dim_bordeaux_stations
+    description: One record per station
+    columns:
+      - name: station_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+  - name: dim_marseille_stations
+    description: One record per station
+    columns:
+      - name: station_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+  - name: dim_paris_stations
+    description: One record per station
+    columns:
+      - name: station_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+  - name: dim_lille_stations
+    description: One record per station
+    columns:
+      - name: station_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+  - name: dim_lyon_stations
+    description: One record per station
+    columns:
+      - name: station_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+

@@ -1,0 +1,16 @@
+.env
+.envrc
+/.credentials
+/FOLDER_TO_TEST_PARTS_OF_PYTHON_SCRIPTS
+test.json
+__pycache__/
+/__pycache__
+/logs/
+/dags/europe-west9-dev-composer-e-aeaa3dd5-bucket/
+logs/
+examples.py
+.vscode
+api_fetch/.python-version
+target/
+dbt_packages/
+

@@ -1,0 +1,22 @@
+checks for raw_view_paris:
+
+  - schema:
+      fail:
+        when required column missing: [station_id, numBikesAvailable, mechanical, ebike, numDocksAvailable, is_installed, is_returning, is_renting, last_reported, stationCode, name, lat, lon, GCS_loaded_at]
+        when wrong column type:
+          station_id: INTEGER
+          numBikesAvailable: INTEGER
+          mechanical: INTEGER
+          ebike: INTEGER
+          numDocksAvailable: INTEGER
+          is_installed: INTEGER
+          is_returning: INTEGER
+          is_renting: INTEGER
+          last_reported: INTEGER
+          stationCode: STRING
+          name: STRING
+          lat: FLOAT64
+          lon: FLOAT64
+          GCS_loaded_at: TIMESTAMP
+
+
