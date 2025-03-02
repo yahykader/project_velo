@@ -48,7 +48,7 @@ jobs:
 
       - name: Build and Push Docker Image to GCP Artifact Registry
         run: |
-          gcloud builds submit --tag $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:${GITHUB_SHA::7} .
+          gcloud builds submit --tag $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:${GITHUB_SHA::7} --source .
 
       - name: Add Latest Tag to Docker Image
         run: |
