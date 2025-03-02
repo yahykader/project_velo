@@ -183,7 +183,6 @@ load_data_to_bq = PythonOperator(
 #     return check(scan_name, checks_subpath)
 
 # from airflow.operators.bash import BashOperator
-# from airflow_dbt.operators.dbt_operator import DbtRunOperator
 # BASH_COMMAND = "dbt run --profiles-dir https://storage.cloud.google.com/europe-west9-dev-composer-e-aeaa3dd5-bucket/dags/dbt/"
 # operator = BashOperator(
 #     task_id="dbt_run",
