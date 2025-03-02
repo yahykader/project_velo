@@ -105,3 +105,7 @@ jobs:
           gsutil -m cp -r dags/* gs://$GCP_REGION-dev-composer-e-aeaa3dd5-bucket/dags
           gsutil -m cp -r dbt/* gs://$GCP_REGION-dev-composer-e-aeaa3dd5-bucket/dags/dbt
           gsutil -m cp -r dbt/profiles.yml gs://$GCP_REGION-dev-composer-e-aeaa3dd5-bucket/data/dbt
+
+          - name: Exclude a file from upload
+            run: |
+              gsutil -m rsync -r -x ".*\.log$" dags gs://$GCP_REGION-dev-composer-e-aeaa3dd5-bucket/dags

@@ -177,6 +177,12 @@ load_data_to_bq = PythonOperator(
     dag=dag
 )
 
+from airflow.operators.bash import BashOperator
+run_dbt = BashOperator(
+        task_id='run_dbt_models',
+        bash_command='cd /home/airflow/gcs/dags/dbt && dbt run --profiles-dir /home/airflow/gcs/data/'
+)
+
 execute_dbt_job = CloudRunExecuteJobOperator(
     task_id="execute_dbt_job",
     project_id=var_project,
@@ -231,5 +237,5 @@ execute_dbt_job = CloudRunExecuteJobOperator(
 # )
 
 # Task dependency set
-extract_data_task >> transform_data_task >> load_data_bucket_task >> load_data_to_bq >> execute_dbt_job
+extract_data_task >> transform_data_task >> load_data_bucket_task >> load_data_to_bq >> run_dbt >>execute_dbt_job
 
