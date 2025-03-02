@@ -180,6 +180,7 @@ load_data_to_bq = PythonOperator(
 execute_dbt_job = CloudRunExecuteJobOperator(
     task_id="execute_dbt_job",
     project_id=var_project,
+    gcp_conn_id=gcp,
     region='europe-west9',
     job_name="dbt-transformations",
     dag=dag,

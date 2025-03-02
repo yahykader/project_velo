@@ -77,7 +77,8 @@ jobs:
             --image $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:latest \
             --region $GCP_REGION \
             --max-retries 3 \
-            --task-timeout=300s    
+            --task-timeout=300s \
+            --set-env-vars "GCP_REGION=$GCP_REGION,PROJECT_ID=$PROJECT_ID"   
 
   deploy:
     needs: build-push
