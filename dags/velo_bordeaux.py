@@ -29,7 +29,7 @@ current_timestamp_str = time.strftime("%Y%m%d_%H%M%S", current_time_struct)
 # DAG definitions with all required params
 dag = DAG(
     DAG_ID,
-    default_args={"retries": 1, "dir": '/home/yahyaoui.kader.85/my-bicycle/dbt',},
+    default_args={"retries"},
     tags=["bordeaux"],
     start_date=datetime(2023, 4, 26),
     catchup=False,
@@ -182,8 +182,8 @@ load_data_to_bq = PythonOperator(
 #     from soda.check_function import check
 #     return check(scan_name, checks_subpath)
 
-from airflow.operators.bash import BashOperator
-from airflow_dbt.operators.dbt_operator import DbtRunOperator
+# from airflow.operators.bash import BashOperator
+# from airflow_dbt.operators.dbt_operator import DbtRunOperator
 # BASH_COMMAND = "dbt run --profiles-dir https://storage.cloud.google.com/europe-west9-dev-composer-e-aeaa3dd5-bucket/dags/dbt/"
 # operator = BashOperator(
 #     task_id="dbt_run",
