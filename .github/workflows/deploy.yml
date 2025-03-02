@@ -26,6 +26,13 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
 
+      - name: Create Artifact Registry Repository
+        run: |
+          gcloud artifacts repositories create $REPOSITORY_NAME \
+            --repository-format=docker \
+            --location=$GCP_REGION \
+            --description="Docker repository for transformations"
+
       - name: Configure Docker Client
         run: gcloud auth configure-docker $GCP_REGION-docker.pkg.dev --quiet
 
@@ -43,6 +50,7 @@ jobs:
             --allow-unauthenticated
 
   deploy:
+    needs: build-push
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
