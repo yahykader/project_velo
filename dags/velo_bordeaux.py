@@ -191,13 +191,22 @@ from airflow_dbt.operators.dbt_operator import DbtRunOperator
 #     dag=dag
 # )
 
-dbt_run = DbtRunOperator(
-        task_id='dbt_run',
-        dbt_bin='dbt',
-        profiles_dir='gs://europe-west9-dev-composer-e-aeaa3dd5-bucket/data/dbt',
-        dir='gs://europe-west9-dev-composer-e-aeaa3dd5-bucket/dags/dbt',
-        target_path='/home/airflow/dbt_target'
-        
+from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesPodOperator
+
+dbt_run = KubernetesPodOperator(
+    task_id='dbt_run',
+    name='dbt-run',
+    namespace='default',
+    image= 'europe-west9-docker.pkg.dev/data-engineering-451818/transformations-repository/dbt-transformations@sha256:cc0ba8b3c8dbb89ad0135bbb8bf569d56ed84293144592b2a543adae8d25568c',
+    cmds=["dbt", "run"],
+    arguments=["--profiles-dir", "/root/.dbt/profiles.yml", "--project-dir", "./dbt"],
+    # env_vars={
+    #     'GCP_REGION': GCP_REGION,
+    #     'PROJECT_ID': var_project,
+    #     'REPOSITORY_NAME': REPOSITORY_NAME,
+    #     'IMAGE_NAME': IMAGE_NAME,
+    # },
+    dag=dag
 )
 
 # def check_load(scan_name='check_load', checks_subpath='sources'):
