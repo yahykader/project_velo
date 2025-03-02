@@ -76,7 +76,6 @@ jobs:
           gcloud run jobs deploy $IMAGE_NAME \
             --image $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:latest \
             --region $GCP_REGION \
-            --allow-unauthenticated \
             --max-retries 3 \
             --task-timeout=300s    
 
