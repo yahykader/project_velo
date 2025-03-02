@@ -73,13 +73,13 @@ jobs:
       # 'dbt-transformations-00001-t8h' is not ready and cannot serve traffic.
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy $IMAGE_NAME \
+          gcloud run jobs deploy $IMAGE_NAME \
             --image $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:latest \
             --region $GCP_REGION \
             --platform managed \
             --allow-unauthenticated \
             --max-retries 3 \
-            --timeout=300s    
+            --task-timeout=300s    
 
   deploy:
     needs: build-push
