@@ -12,13 +12,13 @@ from google.cloud import storage
 from google.cloud import bigquery
 from google.api_core.exceptions import NotFound
 import pandas as pd
-from airflow.operators.python import PythonVirtualenvOperator
-
+from airflow.providers.google.cloud.operators.cloud_run import CloudRunExecuteJobOperator
 # Dag name
 DAG_ID = "Station_bordeaux"
 blob_name = 'bordeaux_data'
 var_bucket = Variable.get('BUCKET_NAME')
 var_project = Variable.get('PROJECT_ID')
+var_region = Variable.get('GCP_REGION')
 
 current_timestamp = time.time()
 current_time_struct = time.localtime(current_timestamp)
@@ -177,6 +177,15 @@ load_data_to_bq = PythonOperator(
     dag=dag
 )
 
+execute_dbt_job = CloudRunExecuteJobOperator(
+    task_id="execute_dbt_job",
+    project_id=var_project,
+    region=var_region,
+    job_name="dbt-transformations",
+    dag=dag,
+    deferrable=False,
+)
+
 # @task.external_python(python='/home/yahyaoui.kader.85/my-bicycle/soda_venv/bin/python')
 # def check_load(scan_name='check_load', checks_subpath='sources'):
 #     from soda.check_function import check
@@ -190,23 +199,23 @@ load_data_to_bq = PythonOperator(
 #     dag=dag
 # )
 
-from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
+# from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
 
-dbt_run = KubernetesPodOperator(
-    task_id='dbt_run',
-    name='dbt-run',
-    namespace='default',
-    image= 'europe-west9-docker.pkg.dev/data-engineering-451818/transformations-repository/dbt-transformations@sha256:cc0ba8b3c8dbb89ad0135bbb8bf569d56ed84293144592b2a543adae8d25568c',
-    cmds=["dbt", "run"],
-    arguments=["--profiles-dir", "/root/.dbt/profiles.yml", "--project-dir", "./dbt"],
-    # env_vars={
-    #     'GCP_REGION': GCP_REGION,
-    #     'PROJECT_ID': var_project,
-    #     'REPOSITORY_NAME': REPOSITORY_NAME,
-    #     'IMAGE_NAME': IMAGE_NAME,
-    # },
-    dag=dag
-)
+# dbt_run = KubernetesPodOperator(
+#     task_id='dbt_run',
+#     name='dbt-run',
+#     namespace='default',
+#     image= 'europe-west9-docker.pkg.dev/data-engineering-451818/transformations-repository/dbt-transformations@sha256:cc0ba8b3c8dbb89ad0135bbb8bf569d56ed84293144592b2a543adae8d25568c',
+#     cmds=["dbt", "run"],
+#     arguments=["--profiles-dir", "/root/.dbt/profiles.yml", "--project-dir", "./dbt"],
+#     # env_vars={
+#     #     'GCP_REGION': GCP_REGION,
+#     #     'PROJECT_ID': var_project,
+#     #     'REPOSITORY_NAME': REPOSITORY_NAME,
+#     #     'IMAGE_NAME': IMAGE_NAME,
+#     # },
+#     dag=dag
+# )
 
 # def check_load(scan_name='check_load', checks_subpath='sources'):
 #     from soda.check_function import check
@@ -222,5 +231,5 @@ dbt_run = KubernetesPodOperator(
 # )
 
 # Task dependency set
-extract_data_task >> transform_data_task >> load_data_bucket_task >> load_data_to_bq >> dbt_run 
+extract_data_task >> transform_data_task >> load_data_bucket_task >> load_data_to_bq 
 
