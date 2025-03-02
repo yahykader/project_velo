@@ -1,4 +1,4 @@
-name: Build & Deploy Image to Cloud Run and Deploy DAGs to GCP Bucket  
+name: Build & Deploy Image to Cloud Run and Deploy DAGs to GCP Bucket
 
 on:
   push:
@@ -12,19 +12,31 @@ env:
   GCP_REGION: europe-west9
 
 jobs:
-  build-push:
+  common-steps:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
+        id: checkout
         uses: actions/checkout@v3
 
       - name: Authentification
+        id: auth
         uses: google-github-actions/auth@v1
         with:
           credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
 
-      - name: Set up Cloud SDK
+      - name: Setup Google Cloud SDK
+        id: setup-gcloud
         uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GOOGLE_PROJECT }}
+
+  build-push:
+    needs: common-steps
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use common steps
+        run: echo "Using common steps"
 
       - name: Create Artifact Registry Repository
         run: |
@@ -41,30 +53,21 @@ jobs:
           gcloud builds submit --tag $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:${GITHUB_SHA::7}
           gcloud container images add-tag $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:${GITHUB_SHA::7} $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:latest
 
-      - name: Deploy to Cloud Run
-        run: |
-          gcloud run deploy $IMAGE_NAME \
-            --image $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:latest \
-            --region $GCP_REGION \
-            --platform managed \
-            --allow-unauthenticated
+      # 'dbt-transformations-00001-t8h' is not ready and cannot serve traffic.
+      # - name: Deploy to Cloud Run
+      #   run: |
+      #     gcloud run deploy $IMAGE_NAME \
+      #       --image $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:latest \
+      #       --region $GCP_REGION \
+      #       --platform managed \
+      #       --allow-unauthenticated
 
   deploy:
     needs: build-push
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Authentification
-        uses: 'google-github-actions/auth@v1'
-        with:
-          credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-
-      - name: Setup Google Cloud SDK
-        uses: 'google-github-actions/setup-gcloud@v1'
-        with:
-          project_id: ${{ secrets.GOOGLE_PROJECT }}
+      - name: Use common steps
+        run: echo "Using common steps"
 
       - name: Upload DAGs to GCP Bucket
         run: |
