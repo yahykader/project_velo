@@ -34,15 +34,22 @@
 
 FROM python:3.10.12-slim
 
-COPY dbt_requirements.txt ./
+# Update and install system packages
+RUN apt-get update -y && \
+  apt-get install --no-install-recommends -y -q \
+  git libpq-dev && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+COPY dbt_requirements.txt .
+
+RUN pip install -U pip
 RUN pip install -r dbt_requirements.txt
 
 RUN mkdir /root/.dbt
 
-COPY dbt dbt
+COPY dbt ./dbt
 COPY dbt/profiles.yml /root/.dbt/profiles.yml
 
-WORKDIR /dbt
-RUN ["dbt", "deps", "--project-dir", "/dbt"]
+RUN ["dbt", "deps", "--project-dir", "./dbt"]
 
