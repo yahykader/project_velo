@@ -12,5 +12,7 @@ examples.py
 .vscode
 api_fetch/.python-version
 target/
-dbt_packages/
+/dbt/dbt_packages/
+/dbt/logs
+/dbt/target
 
