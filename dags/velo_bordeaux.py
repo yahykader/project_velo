@@ -29,11 +29,11 @@ current_timestamp_str = time.strftime("%Y%m%d_%H%M%S", current_time_struct)
 # DAG definitions with all required params
 dag = DAG(
     DAG_ID,
-    default_args={"retries"},
+    default_args={"retries":1},
     tags=["bordeaux"],
     start_date=datetime(2023, 4, 26),
     catchup=False,
-    schedule_interval = '0 * * * *'
+    #schedule_interval = '0 * * * *'
 )
 
 def transform_data(ti):
