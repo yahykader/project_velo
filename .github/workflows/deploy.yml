@@ -12,7 +12,27 @@ env:
   GCP_REGION: europe-west9
 
 jobs:
-  common-steps:
+  # common-steps:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       id: checkout
+  #       uses: actions/checkout@v3
+
+  #     - name: Authentification
+  #       id: auth
+  #       uses: google-github-actions/auth@v1
+  #       with:
+  #         credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+  #     - name: Setup Google Cloud SDK
+  #       id: setup-gcloud
+  #       uses: google-github-actions/setup-gcloud@v1
+  #       with:
+  #         project_id: ${{ secrets.GOOGLE_PROJECT }}
+
+  build-push:
+    #needs: common-steps
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -30,13 +50,6 @@ jobs:
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.GOOGLE_PROJECT }}
-
-  build-push:
-    needs: common-steps
-    runs-on: ubuntu-latest
-    steps:
-      - name: Use common steps
-        run: echo "Using common steps"
 
       - name: Create Artifact Registry Repository
         run: |
@@ -72,8 +85,21 @@ jobs:
     needs: build-push
     runs-on: ubuntu-latest
     steps:
-      - name: Use common steps
-        run: echo "Using common steps"
+      - name: Checkout code
+        id: checkout
+        uses: actions/checkout@v3
+
+      - name: Authentification
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+      - name: Setup Google Cloud SDK
+        id: setup-gcloud
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GOOGLE_PROJECT }}
 
       - name: Upload DAGs to GCP Bucket
         run: |
