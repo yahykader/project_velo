@@ -3,7 +3,7 @@ name: Build & Deploy Image to Cloud Run and Deploy DAGs to GCP Bucket
 on:
   push:
     branches:
-      - main
+      - master
 
 env:
   PROJECT_ID: ${{ secrets.GOOGLE_PROJECT }}
