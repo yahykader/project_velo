@@ -51,7 +51,7 @@ jobs:
 
       - name: Build and Push Docker Image to GCP Artifact Registry
         run: |
-          gcloud builds submit --tag $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:${GITHUB_SHA::7} .
+          gcloud builds submit $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY_NAME/$IMAGE_NAME:${GITHUB_SHA::7} .
 
       - name: Add Latest Tag to Docker Image
         run: |
@@ -72,7 +72,7 @@ jobs:
     steps:
       - name: Use common steps
         run: echo "Using common steps"
-        
+
       - name: Upload DAGs to GCP Bucket
         run: |
           gsutil -m cp -r dags/* gs://$GCP_REGION-dev-composer-e-aeaa3dd5-bucket/dags
