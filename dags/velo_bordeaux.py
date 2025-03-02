@@ -231,5 +231,5 @@ execute_dbt_job = CloudRunExecuteJobOperator(
 # )
 
 # Task dependency set
-extract_data_task >> transform_data_task >> load_data_bucket_task >> load_data_to_bq 
+extract_data_task >> transform_data_task >> load_data_bucket_task >> load_data_to_bq >> execute_dbt_job
 
