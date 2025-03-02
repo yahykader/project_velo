@@ -60,4 +60,4 @@ jobs:
 
       - name: Upload DAGs to GCP Bucket
         run: |
-          gsutil -m cp -r dags/* gs://europe-west9-dev-composer-e-aeaa3dd5-bucket/dags
+          gsutil -m cp -r dags/* gs://$GCP_REGION-dev-composer-e-aeaa3dd5-bucket/dags
