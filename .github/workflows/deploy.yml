@@ -35,9 +35,6 @@ jobs:
     needs: common-steps
     runs-on: ubuntu-latest
     steps:
-      - name: Use common steps
-        run: echo "Using common steps"
-
       - name: Create Artifact Registry Repository
         run: |
           gcloud artifacts repositories create $REPOSITORY_NAME \
@@ -66,9 +63,6 @@ jobs:
     needs: build-push
     runs-on: ubuntu-latest
     steps:
-      - name: Use common steps
-        run: echo "Using common steps"
-
       - name: Upload DAGs to GCP Bucket
         run: |
           gsutil -m cp -r dags/* gs://$GCP_REGION-dev-composer-e-aeaa3dd5-bucket/dags
